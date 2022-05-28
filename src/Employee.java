@@ -3,7 +3,7 @@ public class Employee {
     private String name;
     private String surname;
     private String middlename;
-    public double salary;
+    private double salary;
     public int workPlace;
     public int id;
     private static int counter = 0;
@@ -68,7 +68,24 @@ public class Employee {
         return name + " " + surname + " " + middlename;
     }
 
+    public void addSalary(double prc) { // умножение на проценты зп
+//        prc = 1.0 + prc/100.0;
+        setSalary((int) (getSalary() * prc));
+    }
+    public void addSalary(int val) { // изменение зп на значение
+        salary += val;
+    }
 
+
+    public String toString_noWorkPlace() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", middlename='" + middlename + '\'' +
+                ", salary=" + salary +
+                ", id=" + id +
+                '}';
+    }
 
 
 
