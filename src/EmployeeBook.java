@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class EmployeeBook {
 
     private Employee[] employees = new Employee[50];
@@ -14,6 +16,8 @@ class EmployeeBook {
         // цикл по всем сотрудникам
         for (int i = 0; i < employees.length; i++)
         {
+            if (employees[i] == null)
+                continue;
             // проверка номера отдела с введённым workPlace
             if (workPlace != employees[i].getWorkPlace())
                 continue;
@@ -57,6 +61,8 @@ class EmployeeBook {
 
         // цикл по всем сотрудникам
         for (int i = 0; i < employees.length; i++) {
+            if (employees[i] == null)
+                continue;
             // проверка номера отдела с введённым workPlace
             if (workPlace != employees[i].getWorkPlace())
                 continue;
@@ -65,6 +71,8 @@ class EmployeeBook {
 
         // вывод сотрудников (кроме отдела)
         for (int i = 0; i < employees.length; i++) {
+            if (employees[i] == null)
+                continue;
             // проверка номера отдела с введённым workPlace
             if (workPlace != employees[i].getWorkPlace())
                 continue;
@@ -77,11 +85,15 @@ class EmployeeBook {
     public void zadanie_3(double Salary) {
         System.out.println("Salary < " + Salary);
         for (int i = 0; i < employees.length; i++) {
+            if (employees[i] == null)
+                continue;
             if (employees[i].getSalary() < Salary)
                 System.out.println(employees[i].toString());
         } // end for
         System.out.println("Salary >= " + Salary);
         for (int i = 0; i < employees.length; i++) {
+            if (employees[i] == null)
+                continue;
             if (employees[i].getSalary() >= Salary)
                 System.out.println(employees[i].toString());
         } // end for
@@ -100,24 +112,37 @@ public boolean addEmployee () { // ищем пустой элемент и до�
     return false;
 }
 
-    public void delEmployee (int id){ //удаляем сотрудника по id
+    public void delEmployee (int id) { //удаляем сотрудника по id
         for (int i = 0; i < employees.length; i++) {
-            if (id == employees[i].id)
-                employees[i] = null;
+            if (employees[i] != null)
+                if (id == employees[i].id)
+                    employees[i] = null;
         }
-
     }
 
         public void delEmployee (String name, String surname, String middlename) { //удаляем сотрудников по ФИО
-        for (int i = 0; i < employees.length; i ++){
-            if (name == employees[i].getName() && surname == employees[i].getSurname() && middlename == employees[i].getMiddlename())
-                employees[i] = null;
+            for (int i = 0; i < employees.length; i ++) {
+                if (employees[i] != null)
+                    if (  name == employees[i].getName()
+                       && surname == employees[i].getSurname()
+                       && middlename == employees[i].getMiddlename()
+                    ) {
+                        employees[i] = null;
+                    }
             }
         }
 
-
+    public Employee findEmployee (int id){ //находим сотрудника
+        for (int i = 0; i < employees.length; i ++) {
+            if (employees[i] != null)
+                if (id == employees[i].id)
+                    return employees[i];
+        }
+        return null;
+    }
     public Employee findEmployee (String name, String surname, String middlename){ //находим сотрудника
         for (int i = 0; i < employees.length; i ++) {
+            if (employees[i] != null)
             if (name == employees[i].getName() && surname == employees[i].getSurname() && middlename == employees[i].getMiddlename())
                 return employees[i];
         }
@@ -143,6 +168,12 @@ public boolean addEmployee () { // ищем пустой элемент и до�
             System.out.println(employees[i]);
         }
     }
+//    public void printAllEmployees () {
+//        System.out.println("Список сотрудников :");
+//        for (Employee e : employees) {
+//            System.out.println(e);
+//        }
+//    }
 
 
     public void minMax (){ // считаем мин, мах, средняя, общая
@@ -154,12 +185,15 @@ public boolean addEmployee () { // ищем пустой элемент и до�
         String maxSalarySum = null;
         String minSalarySum = null;
         for(int i = 0; i < employees.length; i++){
+            if (employees[i] == null)
+                continue;
             sum += employees[i].getSalary();
             middleSalary = sum / employees.length;
             if (employees[i].getSalary() > maxSalary){
                 maxSalary = employees[i].getSalary();
                 maxSalarySum = employees[i].getFullName();
-            }if (employees[i].getSalary() < minSalary){
+            }
+            if (employees[i].getSalary() < minSalary){
                 minSalary = employees[i].getSalary();
                 minSalarySum = employees[i].getFullName();
             }
@@ -174,17 +208,38 @@ public boolean addEmployee () { // ищем пустой элемент и до�
     }
 
     public void newName () { //добавляем процент к зп
-
         System.out.println();
         for (int i = 0; i < employees.length; i++) {
-        System.out.print("was " + employees[i].getName() + " " + employees[i].getSalary());
-        employees[i].addSalary(1.02);
-        System.out.println(" now " + employees[i].getSalary());
+            if (employees[i] == null)
+                continue;
+            System.out.print("was " + employees[i].getName() + " " + employees[i].getSalary());
+            employees[i].addSalary(1.02);
+            System.out.println(" now " + employees[i].getSalary());
+        }
     }
 
+    public void printAllEmployeesInWorkPlace () {
+        ArrayList<Integer> workPlaceNumbers = new ArrayList<>();
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i] == null)
+                continue;
+            Integer workPlace = employees[i].getWorkPlace();
+            if (! workPlaceNumbers.contains(workPlace))
+                workPlaceNumbers.add(workPlace);
+        }
 
-}
+        for (Integer workPlace : workPlaceNumbers) {
+            System.out.println("Сотрудники отдела " + workPlaceNumbers.get(i));
+            for (int e = 0; e < employees.length; e++) {
+                if (employees[e] == null)
+                    continue;
+                Integer e_workPlace = employees[e].getWorkPlace();
+                if (workPlace == e_workPlace)
+                    System.out.println(employees[e].toString_noWorkPlace());
+            }
+        }
 
+    }
 
 
 
