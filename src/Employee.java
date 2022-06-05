@@ -17,6 +17,20 @@ public class Employee {
         this.salary = salary;
     }
 
+    static String names[] = { "Петя", "Вася" };
+    static String senames[] = { "Смирнов", "Сидоров" };
+    static String midnames[] = { "Михайлович", "Александрович" };
+
+    public Employee () {
+        id = counter++;
+        name = names[(int)(Math.random() * names.length)];
+        surname = senames[(int)(Math.random() * senames.length)];;
+        middlename = midnames[(int)(Math.random() * midnames.length)];;
+
+        salary = 8500*(1 + Math.random()*50);
+        workPlace = (int) (1 + Math.random()*4);
+    }
+
     public String getName() {
         return name;
     }
@@ -41,7 +55,7 @@ public class Employee {
         return id;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 

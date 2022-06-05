@@ -1,11 +1,9 @@
-public class Main {
-/*
-     static Employee[] employees = new Employee[10];
+class EmployeeBook {
 
-    public void printEmp(Employee[] employe) {
-        System.out.println(employe.toString());
-    }
-    public static void printWorkPlace(int workPlace) {
+    private Employee[] employees = new Employee[50];
+    public EmployeeBook() {}
+
+    public void printWorkPlace(int workPlace) {
         System.out.println("Задание среднего уровня");
         Employee emp_max = null; // new Employee("", "", "", 0, 0);
         Employee emp_min = null; // new Employee("", "", "", 0, 0);
@@ -76,7 +74,7 @@ public class Main {
     } // end printWorkPlace
 
 
-    public static void zadanie_3(double Salary) {
+    public void zadanie_3(double Salary) {
         System.out.println("Salary < " + Salary);
         for (int i = 0; i < employees.length; i++) {
             if (employees[i].getSalary() < Salary)
@@ -89,27 +87,66 @@ public class Main {
         } // end for
     }
 
-        public static void main(String[] args) {
-            // пишем код курсовой список
 
-        employees[0] = new Employee("Иван", "Петров", "Викторович", 1, 35_000 );
-        employees[1] = new Employee("Любовь", "Петрова", "Ивановна", 1, 41_000);
-        employees[2] = new Employee("Михаил", "Смирнов", "Александрович", 2, 29_000);
-        employees[3] = new Employee("Борис", "Котов", "Игоревич", 2, 48_000);
-        employees[4] = new Employee("Мария", "Смирнова", "Владимировна", 3, 65_000);
-        employees[5] = new Employee("Денис", "Топоров", "Аркадьевич", 3, 60_000);
-        employees[6] = new Employee("Александр", "Сильченко", "Евгеньевич", 4, 22_000);
-        employees[7] = new Employee("Екатерина", "Левина", "Викторовна", 4, 45_000);
-        employees[8] = new Employee("Наталья", "Кашапова", "Александровна", 5, 65_000);
-        employees[9] = new Employee("Сергей", "Гаврилов", "Юрьевич", 5, 39_000);
+public boolean addEmployee () { // ищем пустой элемент и добавляем сотрудника
 
-        // выводим список сотрудников
+
+    for (int i = 0; i < employees.length; i++) {
+        if (employees[i] == null) {
+            employees[i] = new Employee();
+            return true;
+        }
+    }
+    return false;
+}
+
+    public void delEmployee (int id){ //удаляем сотрудника по id
         for (int i = 0; i < employees.length; i++) {
-            Employee employee = employees[i];
-            System.out.println(employee);
+            if (id == employees[i].id)
+                employees[i] = null;
         }
 
-        // считаем мин, мах, средняя, общая
+    }
+
+        public void delEmployee (String name, String surname, String middlename) { //удаляем сотрудников по ФИО
+        for (int i = 0; i < employees.length; i ++){
+            if (name == employees[i].getName() && surname == employees[i].getSurname() && middlename == employees[i].getMiddlename())
+                employees[i] = null;
+            }
+        }
+
+
+    public Employee findEmployee (String name, String surname, String middlename){ //находим сотрудника
+        for (int i = 0; i < employees.length; i ++) {
+            if (name == employees[i].getName() && surname == employees[i].getSurname() && middlename == employees[i].getMiddlename())
+                return employees[i];
+        }
+        return null;
+    }
+
+    public void changeSalary (double salary, Employee finded){ //меняем зарплату
+        finded.setSalary(salary);
+
+    }
+
+    public void changeWorkPlace (int workPlace, Employee finded) { //меняем отдел
+        finded.setWorkPlace(workPlace);
+
+    }
+
+
+
+
+    public void printAllEmployees () {
+        System.out.println("Список сотрудников :");
+        for (int i = 0; i < employees.length; i++) {
+            System.out.println(employees[i]);
+        }
+    }
+
+
+    public void minMax (){ // считаем мин, мах, средняя, общая
+
         int sum = 0;
         int maxSalary = employees[0].getSalary();
         int minSalary = employees[0].getSalary();
@@ -133,37 +170,26 @@ public class Main {
         System.out.println("Сотрудник с самой низкой зарплатой: " + minSalarySum+" - " + minSalary);
         System.out.println("Средняя зарплата за месяц: " + middleSalary);
 
-//        addPrc(2.0, employees);
 
-        //добавляем процент к зп
+    }
+
+    public void newName () { //добавляем процент к зп
+
         System.out.println();
         for (int i = 0; i < employees.length; i++) {
-            System.out.print("was " + employees[i].getName() + " " + employees[i].getSalary());
-            employees[i].addSalary(1.02);
-            System.out.println(" now " + employees[i].getSalary());
-        }
-        printWorkPlace(1);
-
-
-        zadanie_3(50000);
+        System.out.print("was " + employees[i].getName() + " " + employees[i].getSalary());
+        employees[i].addSalary(1.02);
+        System.out.println(" now " + employees[i].getSalary());
     }
 
-*/
 
-    public static void main(String[] args) {
-        EmployeeBook empBook = new EmployeeBook();
+}
 
-        empBook.printAllEmployees();
 
-        System.out.println("Дабавляем сотрудников");
-        for (int i = 0; i < 55; ++i) {
-            if ( empBook.addEmployee() )
-                System.out.printf("%d ", i);
-            else
-                System.out.printf("\n%d - Массив сотрудников переполнен", i);
-        }
 
-        empBook.printAllEmployees();
 
-    }
+
+
+
+
 }
